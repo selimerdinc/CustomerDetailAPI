@@ -23,6 +23,8 @@ namespace customerApi.Controllers
         public async Task<ActionResult<List<Customer>>> Get()
         {
             var idFiltered = await _context.customersdb.Where(i => i.Id == 1).ToListAsync();
+            var namaFiltered = await _context.customersdb.Where(i => i.Name == "selim").ToListAsync();
+            var lastNameFiltered = await _context.customersdb.Where(i => i.lastName == "erdinc").ToListAsync();
             var phoneFiltered = await _context.customersdb.Where(i => i.Phone == 1).ToListAsync();
             var createdAtFiltered = await _context.customersdb.Where(i => i.createdAt.Year >= 2020).ToListAsync();
             var updateAtFiltered = await _context.customersdb.Where(i => i.updateAt.Year >= 2020).ToListAsync();
