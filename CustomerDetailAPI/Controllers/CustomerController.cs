@@ -24,8 +24,6 @@ namespace customerApi.Controllers
         {
             var idFiltered = await _context.customersdb.Where(i => i.Id == 1).ToListAsync();
             var phoneFiltered = await _context.customersdb.Where(i => i.Phone == 1).ToListAsync();
-            var nameFiltered = await _context.customersdb.Where(i => i.Name == "selim").ToListAsync();
-            var lastNameFiltered = await _context.customersdb.Where(i => i.lastName == "erdinc").ToListAsync();
             var createdAtFiltered = await _context.customersdb.Where(i => i.createdAt.Year >= 2020).ToListAsync();
             var updateAtFiltered = await _context.customersdb.Where(i => i.updateAt.Year >= 2020).ToListAsync();
             var getAll = await _context.customersdb.ToListAsync();
