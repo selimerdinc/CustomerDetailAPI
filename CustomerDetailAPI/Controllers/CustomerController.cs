@@ -24,6 +24,7 @@ namespace customerApi.Controllers
         public async Task<IActionResult> Get([FromQuery] fromQuery request)
         {
 
+
             IQueryable<Customer> query = _context.customersdb.AsNoTracking();
 
 
@@ -36,6 +37,11 @@ namespace customerApi.Controllers
             if (request.Id > 0)
             {
                 query = query.Where(x => x.Id == request.Id);
+                
+            }
+            if (request.Id < 0) 
+            {
+                return NotFound();
             }
 
             //IsNullOrWhiteSpace => boþ veya null ise olmasý kontrolu saðlýyor
@@ -70,6 +76,7 @@ namespace customerApi.Controllers
             }
 
             return Ok(query.ToList());
+
 
         }
 

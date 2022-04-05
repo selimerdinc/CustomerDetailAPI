@@ -16,7 +16,7 @@ namespace CustomerDetailAPI
 
         [FromQuery]
 
-        public double? Phone { get; set; }
+        public double? Phone { get; set; }  //? == null değer alabilir.
 
         [FromQuery]
 
