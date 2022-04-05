@@ -12,6 +12,7 @@ namespace customerApi.Controllers
 
         private readonly DataContext _context;
 
+
         public CustomerController(DataContext context)
         {
             _context = context;
@@ -19,19 +20,71 @@ namespace customerApi.Controllers
 
 
         //Get request 
-        [HttpGet]
-        public async Task<ActionResult<List<Customer>>> Get()
+        [HttpGet()]
+        public async Task<IActionResult> Get([FromQuery] fromQuery request)
         {
-            var idFiltered = await _context.customersdb.Where(i => i.Id == 1).ToListAsync();
-            var namaFiltered = await _context.customersdb.Where(i => i.Name == "selim").ToListAsync();
-            var lastNameFiltered = await _context.customersdb.Where(i => i.lastName == "erdinc").ToListAsync();
-            var phoneFiltered = await _context.customersdb.Where(i => i.Phone == 1).ToListAsync();
-            var createdAtFiltered = await _context.customersdb.Where(i => i.createdAt.Year >= 2020).ToListAsync();
-            var updateAtFiltered = await _context.customersdb.Where(i => i.updateAt.Year >= 2020).ToListAsync();
-            var getAll = await _context.customersdb.ToListAsync();
-            return Ok(getAll);
+
+            IQueryable<Customer> query = _context.customersdb.AsNoTracking();
+
+
+            /*if(idFiltered!=null && idFiltered.Any())
+            {
+                response.AddRange(idFiltered); //tek tek veri giriþi saðlamak için kullanýlýr.
+          
+            } */
+
+            if (request.Id > 0)
+            {
+                query = query.Where(x => x.Id == request.Id);
+            }
+
+            //IsNullOrWhiteSpace => boþ veya null ise olmasý kontrolu saðlýyor
+            if (!String.IsNullOrWhiteSpace(request.Name))
+            {
+                query = query.Where(x => x.Name == request.Name);
+            }
+
+            if (!String.IsNullOrWhiteSpace(request.lastName))
+            {
+                query = query.Where(x => x.lastName == request.lastName);
+            }
+
+            if (request.Phone != null)
+            {
+                query = query.Where(x => x.Phone == request.Phone);
+            }
+
+            if (request.createdAt != null)
+            {
+                query = query.Where(x => x.createdAt == request.createdAt);
+            }
+
+            if (request.updateAt != null)
+            {
+                query = query.Where(x => x.updateAt == request.updateAt);
+            }
+
+            if (request.isEnabled != null)
+            {
+                query = query.Where(x => x.isEnabled == request.isEnabled);
+            }
+
+            return Ok(query.ToList());
+
         }
+
+
+
+
         //Get request parse id
+        /*  [HttpGet("{name}")]
+          public async Task<ActionResult<List<Customer>>> Get(String Name)
+          {
+              var deneme = await _context.customersdb.FindAsync(Name);
+              if (deneme == null)
+                  return BadRequest("Deneme not found.");
+              return Ok(deneme);
+          }*/
         [HttpGet("{id}")]
         public async Task<ActionResult<List<Customer>>> Get(int id)
         {
