@@ -103,15 +103,15 @@ namespace customerApi.Controllers
 
         //Post request- Adding process was succes
         [HttpPost]
-        public async Task<ActionResult<List<Customer>>> AddWebExample(Customer webExample)
+        public async Task<ActionResult<List<Customer>>> CustomerAdd(Customer customerAdd)
         {
-            _context.customersdb.Add(webExample);
+            _context.customersdb.Add(customerAdd);
             await _context.SaveChangesAsync();
             return Ok(await _context.customersdb.ToListAsync());
         }
 
         [HttpPut]
-        public async Task<ActionResult<List<Customer>>> UpdateWebExample(Customer request)
+        public async Task<ActionResult<List<Customer>>> UpdateCustomer(Customer request)
         {
             var dbdeneme = await _context.customersdb.FindAsync(request.Id);
             if (dbdeneme == null)
