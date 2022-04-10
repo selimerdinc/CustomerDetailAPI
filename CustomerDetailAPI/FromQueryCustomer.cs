@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CustomerDetailAPI
 {
-    public class fromQuery
+    public class FromQueryCustomer
     {
         [FromQuery]
         public int Id { get; set; }
@@ -12,7 +12,7 @@ namespace CustomerDetailAPI
         public string Name { get; set; } = string.Empty;
 
         [FromQuery]
-        public string lastName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
 
         [FromQuery]
 
@@ -20,15 +20,15 @@ namespace CustomerDetailAPI
 
         [FromQuery]
 
-        public DateTime? createdAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         [FromQuery]
 
-        public DateTime? updateAt { get; set; }
+        public DateTime? UpdateAt { get; set; }
 
         [FromQuery]
 
-        public byte? isEnabled { get; set; }
+        public byte? IsEnabled { get; set; }
 
 
     }

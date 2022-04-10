@@ -9,11 +9,11 @@ namespace CustomerDetailAPI
      
         public string Name { get; set; } = string.Empty;
       
-        public string lastName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
         
         public double Phone { get; set; }
-        public DateTime createdAt { get; set; }
-        public DateTime updateAt { get; set; }
-        public byte isEnabled { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdateAt { get; set; }
+        public byte IsEnabled { get; set; }
     }
 }

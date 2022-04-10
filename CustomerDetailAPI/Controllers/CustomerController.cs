@@ -21,11 +21,11 @@ namespace customerApi.Controllers
 
         //Get request 
         [HttpGet()]
-        public async Task<IActionResult> Get([FromQuery] fromQuery request)
+        public async Task<IActionResult> Get([FromQuery] FromQueryCustomer request)
         {
 
 
-            IQueryable<Customer> query = _context.customersdb.AsNoTracking();
+            IQueryable<Customer> query = _context.CustomersDb.AsNoTracking();
 
 
             /*if(idFiltered!=null && idFiltered.Any())
@@ -50,9 +50,9 @@ namespace customerApi.Controllers
                 query = query.Where(x => x.Name == request.Name);
             }
 
-            if (!String.IsNullOrWhiteSpace(request.lastName))
+            if (!String.IsNullOrWhiteSpace(request.LastName))
             {
-                query = query.Where(x => x.lastName == request.lastName);
+                query = query.Where(x => x.LastName == request.LastName);
             }
 
             if (request.Phone != null)
@@ -60,19 +60,19 @@ namespace customerApi.Controllers
                 query = query.Where(x => x.Phone == request.Phone);
             }
 
-            if (request.createdAt != null)
+            if (request.CreatedAt != null)
             {
-                query = query.Where(x => x.createdAt == request.createdAt);
+                query = query.Where(x => x.CreatedAt == request.CreatedAt);
             }
 
-            if (request.updateAt != null)
+            if (request.UpdateAt != null)
             {
-                query = query.Where(x => x.updateAt == request.updateAt);
+                query = query.Where(x => x.UpdateAt == request.UpdateAt);
             }
 
-            if (request.isEnabled != null)
+            if (request.IsEnabled != null)
             {
-                query = query.Where(x => x.isEnabled == request.isEnabled);
+                query = query.Where(x => x.IsEnabled == request.IsEnabled);
             }
 
             return Ok(query.ToList());
@@ -95,51 +95,51 @@ namespace customerApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<List<Customer>>> Get(int id)
         {
-            var deneme = await _context.customersdb.FindAsync(id);
-            if (deneme == null)
+            var getRequest = await _context.CustomersDb.FindAsync(id);
+            if (getRequest == null)
                 return BadRequest("Deneme not found.");
-            return Ok(deneme);
+            return Ok(getRequest);
         }
 
         //Post request- Adding process was succes
         [HttpPost]
-        public async Task<ActionResult<List<Customer>>> CustomerAdd(Customer customerAdd)
+        public async Task<ActionResult<List<Customer>>> AddCustomer(Customer customerAdd)
         {
-            _context.customersdb.Add(customerAdd);
+            _context.CustomersDb.Add(customerAdd);
             await _context.SaveChangesAsync();
-            return Ok(await _context.customersdb.ToListAsync());
+            return Ok(await _context.CustomersDb.ToListAsync());
         }
 
         [HttpPut]
         public async Task<ActionResult<List<Customer>>> UpdateCustomer(Customer request)
         {
-            var dbdeneme = await _context.customersdb.FindAsync(request.Id);
-            if (dbdeneme == null)
+            var updateCustomer = await _context.CustomersDb.FindAsync(request.Id);
+            if (updateCustomer == null)
                 return BadRequest("Deneme not found.");
 
-            dbdeneme.Name = request.Name;
-            dbdeneme.lastName = request.lastName;
-            dbdeneme.Phone = request.Phone;
-            dbdeneme.createdAt = request.createdAt;
-            dbdeneme.updateAt = request.updateAt;
-            dbdeneme.isEnabled = request.isEnabled;
+            updateCustomer.Name = request.Name;
+            updateCustomer.LastName = request.LastName;
+            updateCustomer.Phone = request.Phone;
+            updateCustomer.CreatedAt = request.CreatedAt;
+            updateCustomer.UpdateAt = request.UpdateAt;
+            updateCustomer.IsEnabled = request.IsEnabled;
 
 
             await _context.SaveChangesAsync();
-            return Ok(await _context.customersdb.ToListAsync());
+            return Ok(await _context.CustomersDb.ToListAsync());
         }
         // Delete process on id
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<Customer>>> Delete(int id)
+        public async Task<ActionResult<List<Customer>>> DeleteCustomer(int id)
         {
-            var dvdeneme = await _context.customersdb.FindAsync(id);
-            if (dvdeneme == null)
+            var deleteRequest = await _context.CustomersDb.FindAsync(id);
+            if (deleteRequest == null)
                 return BadRequest("Deneme not found.");
 
-            _context.customersdb.Remove(dvdeneme);
+            _context.CustomersDb.Remove(deleteRequest);
 
             await _context.SaveChangesAsync();
-            return Ok(await _context.customersdb.ToListAsync());
+            return Ok(await _context.CustomersDb.ToListAsync());
 
         }
     }

@@ -6,6 +6,6 @@ namespace CustomerDetailAPI.DB
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        public DbSet<Customer> customersdb { get; set; }
+        public DbSet<Customer> CustomersDb { get; set; }
     }
 }
