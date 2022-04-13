@@ -21,7 +21,7 @@ namespace customerApi.Controllers
 
         //Get request 
         [HttpGet()]
-        public async Task<IActionResult> Get([FromQuery] FromQueryCustomer request)
+        public async Task<IActionResult> GetAll([FromQuery] FromQueryCustomer request)
         {
 
 
@@ -80,20 +80,8 @@ namespace customerApi.Controllers
 
         }
 
-
-
-
-        //Get request parse id
-        /*  [HttpGet("{name}")]
-          public async Task<ActionResult<List<Customer>>> Get(String Name)
-          {
-              var deneme = await _context.customersdb.FindAsync(Name);
-              if (deneme == null)
-                  return BadRequest("Deneme not found.");
-              return Ok(deneme);
-          }*/
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Customer>>> Get(int id)
+        public async Task<ActionResult<List<Customer>>> GetById(int id)
         {
             var getRequest = await _context.CustomersDb.FindAsync(id);
             if (getRequest == null)
