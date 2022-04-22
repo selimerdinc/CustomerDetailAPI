@@ -13,7 +13,7 @@ namespace CustomerDetailApiTEST
 
         public CustomerRepositoryTest()
         {
-            // Test metotları genelinde kullanacağımız User listesi
+            
             var userList = new List<Customer>
             {
                 new Customer {Id=1,Name="User1",LastName="User1LastName" },
@@ -21,23 +21,23 @@ namespace CustomerDetailApiTEST
                 new Customer {Id=3,Name="User3",LastName="User3LastName" }
             };
 
-            // Mock the Products Repository using Moq
+            
             var mockUserRepository = new Mock<ICustomerRepository>();
 
-            // GetAll metodu için setup işlemi
+            
             mockUserRepository.Setup(mr => mr.GetAll()).Returns(userList);
 
-            // GetById metodu için setup işlemi
+            
             mockUserRepository.Setup(mr => mr.GetById(It.IsAny<int>())).Returns((int i) => userList.Single(x => x.Id == i));
 
-            // Insert için setup işlemi
+            
             mockUserRepository.Setup(mr => mr.AddCustomer(It.IsAny<Customer>())).Callback(
                 (Customer target) =>
                 {
                     userList.Add(target);
                 });
 
-            // Update için setup işlemi
+            
             mockUserRepository.Setup(mr => mr.UpdateCustomer(It.IsAny<Customer>())).Callback(
                 (Customer target) =>
                 {
@@ -53,7 +53,7 @@ namespace CustomerDetailApiTEST
 
                 });
 
-            // Test metotlarından erişilebilmesi için global olarak tanımladığımız MockUserRepository'e yukarıdaki setup işlemlerini atıyoruz
+            
             this.MockUserRepository = mockUserRepository.Object;
         }
 
