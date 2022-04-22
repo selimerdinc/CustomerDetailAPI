@@ -16,9 +16,9 @@ namespace CustomerDetailApiTEST
             
             var userList = new List<Customer>
             {
-                new Customer {Id=1,Name="User1",LastName="User1LastName" },
-                new Customer {Id=2,Name="User2",LastName="User2LastName" },
-                new Customer {Id=3,Name="User3",LastName="User3LastName" }
+                new Customer {Id=20,Name="User1",LastName="User1LastName" },
+                new Customer {Id=22,Name="User2",LastName="User2LastName" },
+                new Customer {Id=32,Name="User3",LastName="User3LastName" }
             };
 
             
@@ -78,7 +78,7 @@ namespace CustomerDetailApiTEST
             Assert.AreEqual(actual.Id, expected.Id); // test correct object found
         }
         [TestMethod]
-        public void Insert_User_Than_Check_GetAll_Count_Test()
+        public void Add_Customer_Than_Check_GetAll_Count_Test()
         {
             var actual = this.MockUserRepository.GetAll().Count + 1;
 
@@ -98,7 +98,7 @@ namespace CustomerDetailApiTEST
         }
 
         [TestMethod]
-        public void Update_User_Than_Check_It_Is_Updated_Test()
+        public void Update_Customer_Than_Check_It_Is_Updated_Test()
         {
             var actual = new Customer { Id = 2, Name = "User2_Updated", LastName = "User2LastName_Updated" };
 
