@@ -70,9 +70,9 @@ namespace customerApi.Controllers
                 query = query.Where(x => x.UpdateAt == request.UpdateAt);
             }
 
-            if (request.IsEnabled != null)
+            if (request.isEnabled != null)
             {
-                query = query.Where(x => x.IsEnabled == request.IsEnabled);
+                query = query.Where(x => x.isEnabled == request.isEnabled);
             }
 
             return Ok(query.ToList());
@@ -110,13 +110,13 @@ namespace customerApi.Controllers
             updateCustomer.Phone = request.Phone;
             updateCustomer.CreatedAt = request.CreatedAt;
             updateCustomer.UpdateAt = request.UpdateAt;
-            updateCustomer.IsEnabled = request.IsEnabled;
+            updateCustomer.isEnabled = request.isEnabled;
 
 
             await _context.SaveChangesAsync();
             return Ok(await _context.CustomersDb.ToListAsync());
         }
-        // Delete process on id
+        
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<Customer>>> DeleteCustomer(int id)
         {

@@ -28,7 +28,7 @@ namespace CustomerDetailAPI
 
         [FromQuery]
 
-        public byte? IsEnabled { get; set; }
+        public byte? isEnabled { get; set; }
 
 
     }
