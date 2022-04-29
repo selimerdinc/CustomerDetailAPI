@@ -1,5 +1,6 @@
 global using CustomerDetailAPI.DB;
 global using Microsoft.EntityFrameworkCore;
+using CustomerDetailAPI.Services;
 using FluentValidation.AspNetCore;
 using System.Reflection;
 
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddControllers()
     .AddFluentValidation(c =>
     c.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));

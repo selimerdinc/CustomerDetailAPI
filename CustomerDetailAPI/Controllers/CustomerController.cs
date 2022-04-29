@@ -1,23 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
-using CustomerDetailAPI.DB;
-using Microsoft.EntityFrameworkCore;
-using CustomerDetailAPI;
+using CustomerDetailAPI.Services;
 
-namespace customerApi.Controllers
+namespace CustomerDetailAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class CustomerController : ControllerBase
     {
+        private readonly ICustomerRepository _customerRepository;
+        private List<Customer> _testProducts;
 
-        private readonly DataContext _context;
-
-
-        public CustomerController(DataContext context)
+        public CustomerController(ICustomerRepository customer)
         {
-            _context = context;
-        }
+            _customerRepository = customer;
 
+        }
 
         //Get request 
         [HttpGet()]
@@ -25,7 +22,7 @@ namespace customerApi.Controllers
         {
 
 
-            IQueryable<Customer> query = _context.CustomersDb.AsNoTracking();
+            IQueryable<Customer> query = _customerRepository.GetAll();
 
 
             /*if(idFiltered!=null && idFiltered.Any())
@@ -37,9 +34,9 @@ namespace customerApi.Controllers
             if (request.Id > 0)
             {
                 query = query.Where(x => x.Id == request.Id);
-                
+
             }
-            if (request.Id < 0) 
+            if (request.Id <= 0)
             {
                 return NotFound();
             }
@@ -80,10 +77,11 @@ namespace customerApi.Controllers
 
         }
 
+
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Customer>>> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var getRequest = await _context.CustomersDb.FindAsync(id);
+            var getRequest = _customerRepository.GetById(id);
             if (getRequest == null)
                 return BadRequest("Deneme not found.");
             return Ok(getRequest);
@@ -91,44 +89,28 @@ namespace customerApi.Controllers
 
         //Post request- Adding process was succes
         [HttpPost]
-        public async Task<ActionResult<List<Customer>>> AddCustomer(Customer customerAdd)
+        public async Task<IActionResult> AddCustomer(Customer customerAdd)
         {
-            _context.CustomersDb.Add(customerAdd);
-            await _context.SaveChangesAsync();
-            return Ok(await _context.CustomersDb.ToListAsync());
+            _customerRepository.AddCustomer(customerAdd);
+
+            return Ok(new { message = "User created" });
         }
 
-        [HttpPut]
-        public async Task<ActionResult<List<Customer>>> UpdateCustomer(Customer request)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCustomer(int id, Customer request)
         {
-            var updateCustomer = await _context.CustomersDb.FindAsync(request.Id);
-            if (updateCustomer == null)
-                return BadRequest("Deneme not found.");
+            _customerRepository.UpdateCustomer(id, request);
+            return Ok(new { message = "User updated" });
 
-            updateCustomer.Name = request.Name;
-            updateCustomer.LastName = request.LastName;
-            updateCustomer.Phone = request.Phone;
-            updateCustomer.CreatedAt = request.CreatedAt;
-            updateCustomer.UpdateAt = request.UpdateAt;
-            updateCustomer.isEnabled = request.isEnabled;
-
-
-            await _context.SaveChangesAsync();
-            return Ok(await _context.CustomersDb.ToListAsync());
         }
-        
+
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<Customer>>> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteCustomer(int id)
         {
-            var deleteRequest = await _context.CustomersDb.FindAsync(id);
-            if (deleteRequest == null)
-                return BadRequest("Deneme not found.");
-
-            _context.CustomersDb.Remove(deleteRequest);
-
-            await _context.SaveChangesAsync();
-            return Ok(await _context.CustomersDb.ToListAsync());
+            _customerRepository.DeleteCustomer(id);
+            return Ok(new { message = "User deleted" });
 
         }
     }
-}
+    }
+

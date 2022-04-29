@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
+﻿
 namespace CustomerDetailAPI.DB
 {
     public class DataContext : DbContext
