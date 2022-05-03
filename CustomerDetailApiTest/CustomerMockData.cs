@@ -13,9 +13,11 @@ namespace CustomerDetailApiTest
         {
             return new Customer
             {
-                Id = 1,
+                Id = 10,
                 Name = "selimselim",
-                LastName = "deneme123"
+                LastName = "deneme123",
+                Phone = 11111111111,
+                isEnabled = 0
             };
         }
 
@@ -25,9 +27,11 @@ namespace CustomerDetailApiTest
             {
                 return new Customer
                 {
-                    Id = 0,
+                    Id = 1,
                     Name = "erdincerdinc",
-                    LastName = "melikoğlu"
+                    LastName = "testtesttest",
+                    Phone = 5315313131,
+                    isEnabled=1
                 };
             }
              public static Customer GetCustomer()

@@ -14,7 +14,7 @@ namespace CustomerDetailApiTest
 {
     public class CustomerControllerTest
     {
-        //POST Bir şey dönmediğini test ettik
+       
 
         [Fact]
         public async Task AddCustomer_ShouldCall_ICustomerRepository_AddCustomer_AtleastOnce()
@@ -52,9 +52,10 @@ namespace CustomerDetailApiTest
         {
             /// Arrange
             var customerRepo = new Mock<ICustomerRepository>();
-            int id = CustomerMockData.Three_Different_Customer().Id;
+            int id = CustomerMockData.NewCustomer().Id;
             var newCustomer = CustomerMockData.Three_Different_Customer();
             var sut = new CustomerController(customerRepo.Object);
+            
 
             /// Act
             var result = await sut.UpdateCustomer(id,newCustomer);

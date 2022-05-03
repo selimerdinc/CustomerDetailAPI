@@ -20,27 +20,21 @@ namespace CustomerDetailAPI.Controllers
         [HttpGet()]
         public async Task<IActionResult> GetAll([FromQuery] FromQueryCustomer request)
         {
-
-
             IQueryable<Customer> query = _customerRepository.GetAll();
-
-
             /*if(idFiltered!=null && idFiltered.Any())
             {
-                response.AddRange(idFiltered); //tek tek veri giriþi saðlamak için kullanýlýr.
-          
+                response.AddRange(idFiltered); //tek tek veri giriþi saðlamak için kullanýlýr.    
             } */
+            if (request.Id <= 0)
+            {
+                return NotFound();
+            }
 
             if (request.Id > 0)
             {
                 query = query.Where(x => x.Id == request.Id);
 
             }
-            if (request.Id <= 0)
-            {
-                return NotFound();
-            }
-
             //IsNullOrWhiteSpace => boþ veya null ise olmasý kontrolu saðlýyor
             if (!String.IsNullOrWhiteSpace(request.Name))
             {
