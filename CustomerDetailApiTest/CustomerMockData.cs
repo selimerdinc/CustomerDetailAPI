@@ -17,10 +17,12 @@ namespace CustomerDetailApiTest
                 Name = "selimselim",
                 LastName = "deneme123",
                 Phone = 11111111111,
+                CreatedAt='2012-04-04T15:49:51.977',
+                UpdateAt ='2022-04-04T15:49:51.977',
                 isEnabled = 0
             };
         }
-
+       
 
             // existing code hidden for display purpose
             public static Customer NewCustomer()

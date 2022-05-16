@@ -14,7 +14,6 @@ namespace CustomerDetailApiTest
 {
     public class CustomerControllerTest
     {
-       
 
         [Fact]
         public async Task AddCustomer_ShouldCall_ICustomerRepository_AddCustomer_AtleastOnce()
